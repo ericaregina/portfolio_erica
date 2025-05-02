@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,6 +14,7 @@
         opacity: 0;
         transform: translateY(20px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -38,49 +40,66 @@
     }
   </style>
 </head>
+
 <body class="bg-gray-900 text-white font-sans transition-colors duration-300" id="body">
 
- 
+
   <header class="p-5 shadow-lg">
     <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
       <div class="flex justify-between items-center">
-        <a href="https://github.com/ericaregina" target="_blank" class="text-sm sm:text-base font-bold text-gray-400 hover:text-pink-400 transition inline-flex items-center">
-          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNlZDY0YzgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1naXRodWItaWNvbiBsdWNpZGUtZ2l0aHViIj48cGF0aCBkPSJNMTUgMjJ2LTRhNC44IDQuOCAwIDAgMC0xLTMuNWMzIDAgNi0yIDYtNS41LjA4LTEuMjUtLjI3LTIuNDgtMS0zLjUuMjgtMS4xNS4yOC0yLjM1IDAtMy41IDAgMC0xIDAtMyAxLjUtMi42NC0uNS01LjM2LS41LTggMEM2IDIgNSAyIDUgMmMtLjMgMS4xNS0uMyAyLjM1IDAgMy41QTUuNDAzIDUuNDAzIDAgMCAwIDQgOWMwIDMuNSAzIDUuNSA2IDUuNS0uMzkuNDktLjY4IDEuMDUtLjg1IDEuNjUtLjE3LjYtLjIyIDEuMjMtLjE1IDEuODV2NCIvPjxwYXRoIGQ9Ik05IDE4Yy00LjUxIDItNS0yLTctMiIvPjwvc3ZnPg==" width="24" height="24" class="mr-2" />
+        <a href="https://github.com/ericaregina" target="_blank"
+          class="text-sm sm:text-base font-bold text-gray-400 hover:text-pink-400 transition inline-flex items-center">
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNlZDY0YzgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1naXRodWItaWNvbiBsdWNpZGUtZ2l0aHViIj48cGF0aCBkPSJNMTUgMjJ2LTRhNC44IDQuOCAwIDAgMC0xLTMuNWMzIDAgNi0yIDYtNS41LjA4LTEuMjUtLjI3LTIuNDgtMS0zLjUuMjgtMS4xNS4yOC0yLjM1IDAtMy41IDAgMC0xIDAtMyAxLjUtMi42NC0uNS01LjM2LS41LTggMEM2IDIgNSAyIDUgMmMtLjMgMS4xNS0uMyAyLjM1IDAgMy41QTUuNDAzIDUuNDAzIDAgMCAwIDQgOWMwIDMuNSAzIDUuNSA2IDUuNS0uMzkuNDktLjY4IDEuMDUtLjg1IDEuNjUtLjE3LjYtLjIyIDEuMjMtLjE1IDEuODV2NCIvPjxwYXRoIGQ9Ik05IDE4Yy00LjUxIDItNS0yLTctMiIvPjwvc3ZnPg=="
+            width="24" height="24" class="mr-2" />
           https://github.com/ericaregina
         </a>
         <button class="sm:hidden text-xl ml-4" onclick="toggleMenu()">
-          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNlZDY0YzgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1jaXJjbGUtZWxsaXBzaXMtaWNvbiBsdWNpZGUtY2lyY2xlLWVsbGlwc2lzIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIvPjxwYXRoIGQ9Ik0xNyAxMmguMDEiLz48cGF0aCBkPSJNMTIgMTJoLjAxIi8+PHBhdGggZD0iTTcgMTJoLjAxIi8+PC9zdmc+"class="icon mr-2" width="24" height="24" />
+          <img
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNlZDY0YzgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1jaXJjbGUtZWxsaXBzaXMtaWNvbiBsdWNpZGUtY2lyY2xlLWVsbGlwc2lzIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIvPjxwYXRoIGQ9Ik0xNyAxMmguMDEiLz48cGF0aCBkPSJNMTIgMTJoLjAxIi8+PHBhdGggZD0iTTcgMTJoLjAxIi8+PC9zdmc+"
+            class="icon mr-2" width="24" height="24" />
         </button>
       </div>
       <nav id="menu" class="hidden sm:flex flex-col sm:flex-row sm:items-center sm:space-x-4 mt-4 sm:mt-0">
         <ul class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 text-center">
-          <li><a onclick="scrollToSection('sobre')" class="hover:text-pink-400 cursor-pointer" data-translate="menu_sobre">Sobre</a></li>
-          <li><a onclick="scrollToSection('projetos')" class="hover:text-pink-400 cursor-pointer" data-translate="menu_projetos">Projetos</a></li>
-          <li><a onclick="scrollToSection('contato')" class="hover:text-pink-400 cursor-pointer" data-translate="menu_contato">Contato</a></li>
+          <li><a onclick="scrollToSection('sobre')" class="hover:text-pink-400 cursor-pointer"
+              data-translate="menu_sobre">Sobre</a></li>
+          <li><a onclick="scrollToSection('projetos')" class="hover:text-pink-400 cursor-pointer"
+              data-translate="menu_projetos">Projetos</a></li>
+          <li><a onclick="scrollToSection('contato')" class="hover:text-pink-400 cursor-pointer"
+              data-translate="menu_contato">Contato</a></li>
         </ul>
         <div class="flex justify-center items-center space-x-6">
-  <button onclick="toggleDarkMode()" class="bg-gray-300 px-2 py-1 rounded-full hover:bg-pink-500 transition ml-4">
-    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNsb3VkLXN1bi1pY29uIGx1Y2lkZS1jbG91ZC1zdW4iPjxwYXRoIGQ9Ik0xMiAydjIiLz48cGF0aCBkPSJtNC45MyA0LjkzIDEuNDEgMS40MSIvPjxwYXRoIGQ9Ik0yMCAxMmgyIi8+PHBhdGggZD0ibTE5LjA3IDQuOTMtMS40MSAxLjQxIi8+PHBhdGggZD0iTTE1Ljk0NyAxMi42NWE0IDQgMCAwIDAtNS45MjUtNC4xMjgiLz48cGF0aCBkPSJNMTMgMjJIN2E1IDUgMCAxIDEgNC45LTZIMTNhMyAzIDAgMCAxIDAgNloiLz48L3N2Zz4=" width="18" height="18" />
-  </button>
- <button onclick="toggleLanguage()" class="bg-gray-300 px-1 py-0.5 rounded-full hover:bg-pink-500 transition ml-4 text-black">
-    PT | ENG
-  </button>
-</div>
+          <button onclick="toggleDarkMode()"
+            class="bg-gray-300 px-2 py-1 rounded-full hover:bg-pink-500 transition ml-4">
+            <img
+              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNsb3VkLXN1bi1pY29uIGx1Y2lkZS1jbG91ZC1zdW4iPjxwYXRoIGQ9Ik0xMiAydjIiLz48cGF0aCBkPSJtNC45MyA0LjkzIDEuNDEgMS40MSIvPjxwYXRoIGQ9Ik0yMCAxMmgyIi8+PHBhdGggZD0ibTE5LjA3IDQuOTMtMS40MSAxLjQxIi8+PHBhdGggZD0iTTE1Ljk0NyAxMi42NWE0IDQgMCAwIDAtNS45MjUtNC4xMjgiLz48cGF0aCBkPSJNMTMgMjJIN2E1IDUgMCAxIDEgNC45LTZIMTNhMyAzIDAgMCAxIDAgNloiLz48L3N2Zz4="
+              width="18" height="18" />
+          </button>
+          <button onclick="toggleLanguage()"
+            class="bg-gray-300 px-1 py-0.5 rounded-full hover:bg-pink-500 transition ml-4 text-black">
+            PT | ENG
+          </button>
+        </div>
 
-        
+
       </nav>
     </div>
   </header>
 
   <section class="flex flex-col items-center justify-center min-h-screen text-center px-4 animate-fade-in-up">
     <div class="mb-10">
-      <img src="perfil.jpg" alt="Foto da Érica" class="w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 rounded-full shadow-lg object-cover border-4 border-pink-500" />
+      <img src="perfil.jpg" alt="Foto da Érica"
+        class="w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 rounded-full shadow-lg object-cover border-4 border-pink-500" />
     </div>
     <h2 class="text-3xl sm:text-5xl font-extrabold mb-4" data-translate="hero_titulo">Oie, sou a Érica Ribeiro!</h2>
     <p class="text-lg sm:text-xl text-gray-500 max-w-xl" data-translate="hero_texto">
-      Crio soluções completas para web e mobile, atuando no desenvolvimento frontend e backend com eficiência e criatividade.
+      Crio soluções completas para web e mobile, atuando no desenvolvimento frontend e backend com eficiência e
+      criatividade.
     </p>
-    <button onclick="scrollToSection('projetos')" class="mt-6 bg-pink-500 hover:bg-pink-600 text-white py-2 px-4 rounded-xl transition-all" data-translate="btn_ver_projetos">
+    <button onclick="scrollToSection('projetos')"
+      class="mt-6 bg-pink-500 hover:bg-pink-600 text-white py-2 px-4 rounded-xl transition-all"
+      data-translate="btn_ver_projetos">
       Ver Projetos
     </button>
   </section>
@@ -89,205 +108,199 @@
   <section id="sobre" class="p-6 sm:p-8 animate-fade-in-up">
     <h3 class="text-3xl font-bold mb-4 text-center" data-translate="titulo_sobre">Sobre mim</h3>
     <p class="text-gray-500 text-center break-words whitespace-normal" data-translate="texto_sobre">
-      Estudante do 5º semestre de Análise e Desenvolvimento de Sistemas, com foco em desenvolvimento mobile e web. Busco minha primeira oportunidade profissional na área de TI para aplicar meus conhecimentos em projetos reais e crescer como desenvolvedora. Tenho perfil autodidata, sou dedicada ao aprendizado contínuo e estou sempre em busca de aprimoramento por meio de cursos, projetos práticos e desafios. Estou pronta para colaborar com equipes, contribuindo com soluções criativas, eficiência e comprometimento.
-      </p>
+      Estudante do 5º semestre de Análise e Desenvolvimento de Sistemas, com foco em desenvolvimento mobile e web. Busco minha primeira oportunidade profissional na área de TI para aplicar meus conhecimentos em projetos reais e crescer como desenvolvedora. Tenho perfil autodidata, sou dedicada ao aprendizado contínuo e estou sempre em busca de aprimoramento por meio de cursos, projetos práticos e desafios. Já realizei trabalhos como freelancer desenvolvendo sites, o que me permitiu aplicar habilidades técnicas e lidar com demandas reais de clientes. Estou pronta para colaborar com equipes, contribuindo com soluções criativas, eficiência e comprometimento.
+    </p>
   </section>
 
-  
+
   <section id="projetos" class="p-6 sm:p-8 animate-fade-in-up">
     <h3 class="text-3xl font-bold mb-6 text-center" data-translate="titulo_projetos">Projetos</h3>
 
 
-<div class="swiper w-full max-w-xl mx-auto">
-  <div class="swiper-wrapper">
+    <div class="swiper w-full max-w-xl mx-auto">
+      <div class="swiper-wrapper">
 
-    <div class="swiper-slide">
-      <img src="appstore.png" alt="Projeto 1" class="rounded-xl max-w-full h-auto" />
+        <div class="swiper-slide">
+          <img src="appstore.png" alt="Projeto 1" class="rounded-xl max-w-full h-auto" />
+        </div>
+
+        <div class="swiper-slide">
+          <img src="dior.png" alt="Projeto 2" class="rounded-xl max-w-full h-auto" />
+        </div>
+
+        <div class="swiper-slide">
+          <img src="belle.jpg" alt="Projeto 3" class="rounded-xl max-w-full h-auto" />
+        </div>
+
+
+        <div class="swiper-slide">
+          <video class="rounded-xl  w-[150px] mx-auto h-auto" autoplay muted loop playsinline>
+            <source src="video.mp4" type="video/mp4" />
+            Seu navegador não suporta vídeos em HTML5.
+          </video>
+        </div>
+
+
+
+        <div class="swiper-slide">
+          <img src="beauty1.jpg" alt="Projeto 4" class="rounded-xl  w-[150px] mx-auto h-auto" />
+        </div>
+
+
+
+
+        <div class="swiper-slide">
+          <img src="assistente.png" alt="Projeto 6" class="rounded-xl max-w-full h-auto" />
+        </div>
+
+      </div>
+
+
+      <div class="swiper-pagination" style="position: relative; bottom: -30px;"></div>
+
     </div>
 
-    <div class="swiper-slide">
-      <img src="dior.png" alt="Projeto 2" class="rounded-xl max-w-full h-auto" />
-    </div>
-
-    <div class="swiper-slide">
-      <img src="belle.jpg" alt="Projeto 3" class="rounded-xl max-w-full h-auto" />
-    </div>
-
-   
-    <div class="swiper-slide">
-      <video class="rounded-xl max-w-full h-auto" autoplay muted loop playsinline>
-        <source src="belitia.mp4" type="video/mp4" />
-        Seu navegador não suporta vídeos em HTML5.
-      </video>
-    </div>
-
-    
-    <div class="swiper-slide">
-      <video class="rounded-xl max-w-full h-auto" autoplay muted loop playsinline>
-        <source src="belitia2.mp4" type="video/mp4" />
-        Seu navegador não suporta vídeos em HTML5.
-      </video>
-    </div>
-
-   
-    <div class="swiper-slide">
-      <img src="beauty1.jpg" alt="Projeto 4" class="rounded-xl  w-[150px] mx-auto h-auto" />
-    </div>
-
-    <div class="swiper-slide">
-      <img src="beauty2.jpg" alt="Projeto 5" class="rounded-xl  w-[150px] mx-auto h-auto" />
-    </div>
-
-  
-    <div class="swiper-slide">
-      <img src="assistente.png" alt="Projeto 6" class="rounded-xl max-w-full h-auto" />
-    </div>
-
-  </div>
 
 
-  <div class="swiper-pagination mt-4"></div>
-</div>
 
-
-    
-
-   <h4 class="dark:text-white text-center font-semibold mb-8 mt-8" data-translate="titulo_tecnologias">
+    <h4 class="dark:text-white text-center font-semibold mb-8 mt-8" data-translate="titulo_tecnologias">
       Minhas Tecnologias
-  </h4>         
-  
-  <ul class="grid grid-cols-1 sm:grid-cols-2 gap-2 place-items-center text-gray-500 dark:text-gray-500 list-disc list-inside">
-    <li>HTML5 / CSS3</li>
-    <li>JavaScript</li>
-    <li>Flutter</li>
-    <li>MySQL</li>
-    <li>React Native</li>
-    <li>Tailwind</li>
-    <li>Node.js</li>
-    <li>Express.js</li>
-  </ul>
-  
-      
-      
-  <section id="contato" class="p-4 sm:p-8 text-center animate-fade-in-up">
-    <h3 class="text-3xl font-bold mb-4" data-translate="titulo_contato">Entre em contato</h3>
-    <p class="text-gray-500 mb-4">
-      <span data-translate="email">Me envie um e-mail:</span> <a href="mailto:ribeiroericacomc@gmail.com" class="text-pink-400 underline">ribeiroericacomc@gmail.com</a>
-    </p>
-    <a href="https://wa.me/5547992806411?text=Olá%20Érica%2C%20vi%20seu%20portfólio%20e%20gostaria%20de%20falar%20com%20você!" target="_blank" class="bg-pink-500 hover:bg-pink-600 py-2 px-4 rounded-xl inline-block text-white" data-translate="btn_whatsapp">
-      WhatsApp
-    </a>
-    <a id="downloadCV"
-   href="Currículo - Erica Ribeiro.pdf"
-   download
-   class="mt-4 bg-pink-500 hover:bg-pink-600 py-2 px-4 rounded-xl inline-block text-white"
-   data-translate="btn_download_cv">
-   Baixar Currículo
-</a>
+    </h4>
 
-  </section>
+    <ul
+      class="grid grid-cols-1 sm:grid-cols-2 gap-2 place-items-center text-gray-500 dark:text-gray-500 list-disc list-inside">
+      <li>HTML5 / CSS3</li>
+      <li>JavaScript</li>
+      <li>Flutter</li>
+      <li>MySQL</li>
+      <li>React Native</li>
+      <li>Tailwind</li>
+      <li>Node.js</li>
+      <li>Express.js</li>
+    </ul>
 
-  <footer class="text-center py-4 text-gray-500" data-translate="text_direitos">
-    © 2025 Todos os direitos reservados.
-  </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script>
-    const swiper = new Swiper(".swiper", {
-      loop: true,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-    });
 
-    function scrollToSection(id) {
-      document.getElementById(id).scrollIntoView({ behavior: "smooth" });
-    }
+    <section id="contato" class="p-4 sm:p-8 text-center animate-fade-in-up">
+      <h3 class="text-3xl font-bold mb-4" data-translate="titulo_contato">Entre em contato</h3>
+      <p class="text-gray-500 mb-4">
+        <span data-translate="email">Me envie um e-mail:</span> <a href="mailto:ribeiroericacomc@gmail.com"
+          class="text-pink-400 underline">ribeiroericacomc@gmail.com</a>
+      </p>
+      <a href="https://wa.me/5547992806411?text=Olá%20Érica%2C%20vi%20seu%20portfólio%20e%20gostaria%20de%20falar%20com%20você!"
+        target="_blank" class="bg-pink-500 hover:bg-pink-600 py-2 px-4 rounded-xl inline-block text-white"
+        data-translate="btn_whatsapp">
+        WhatsApp
+      </a>
+      <a id="downloadCV" href="Currículo - Erica Ribeiro.pdf" download
+        class="mt-4 bg-pink-500 hover:bg-pink-600 py-2 px-4 rounded-xl inline-block text-white"
+        data-translate="btn_download_cv">
+        Baixar Currículo
+      </a>
 
-    function toggleDarkMode() {
-      const body = document.getElementById("body");
-      const sections = document.querySelectorAll("section, footer");
-      const projectBoxes = document.querySelectorAll(".project-box");
-      const isDark = body.classList.contains("bg-gray-900");
+    </section>
 
-      if (isDark) {
-        body.classList.remove("bg-gray-900", "text-white");
-        body.classList.add("bg-white", "text-gray-900");
-        sections.forEach(sec => sec.classList.add("bg-white", "text-gray-900"));
-        projectBoxes.forEach(box => box.classList.add("bg-gray-100", "text-gray-900"));
-      } else {
-        body.classList.remove("bg-white", "text-gray-900");
-        body.classList.add("bg-gray-900", "text-white");
-        sections.forEach(sec => sec.classList.remove("bg-white", "text-gray-900"));
-        projectBoxes.forEach(box => box.classList.remove("bg-gray-100", "text-gray-900"));
-      }
-    }
+    <footer class="text-center py-4 text-gray-500" data-translate="text_direitos">
+      © 2025 Todos os direitos reservados.
+    </footer>
 
-    function toggleMenu() {
-      document.getElementById("menu").classList.toggle("hidden");
-    }
-
-    const translations = {
-      pt: {
-        menu_sobre: "Sobre",
-        menu_projetos: "Projetos",
-        menu_contato: "Contato",
-        hero_titulo: "Oie, sou a Érica Ribeiro!",
-        hero_texto: "Crio soluções completas para web e mobile, atuando no desenvolvimento frontend e backend com eficiência e criatividade.",
-        btn_ver_projetos: "Ver Projetos",
-        titulo_sobre: "Sobre mim",
-        texto_sobre: "Estou em busca da minha primeira oportunidade na área de TI, com foco em programação. No momento estudo Desenvolvimento em Flutter para desenvolver interfaces web e aplicativos móveis, e estou no 5º semestre de Análise e Desenvolvimento de Sistemas. Estou pronta para ganhar experiência prática e continuar aprendendo. Sou autodidata, busco me atualizar constantemente com cursos online e novos desafios.",
-        titulo_projetos: "Projetos",
-        titulo_tecnologias: "Minhas Tecnologias",
-        titulo_contato: "Entre em contato",
-        email: "Me envie um e-mail:",
-        btn_whatsapp: "WhatsApp",
-        btn_download_cv: "Baixar Currículo", 
-        text_direitos :"© 2025 Todos os direitos reservados"
-      },
-      en: {
-        menu_sobre: "About",
-        menu_projetos: "Projects",
-        menu_contato: "Contact",
-        hero_titulo: "Hi, I'm Érica Ribeiro!",
-        hero_texto: "I create complete solutions for web and mobile, working with frontend and backend development efficiently and creatively.",
-        btn_ver_projetos: "See Projects",
-        titulo_sobre: "About Me",
-        texto_sobre: "I am looking for my first opportunity in the IT field, focusing on programming. I am currently studying Flutter development to create web interfaces and mobile applications, and I’m in the 5th semester of my degree in Systems Analysis and Development. I’m ready to gain practical experience and keep learning. I’m self-taught and constantly seek to update myself through online courses and new challenges.",
-        titulo_projetos: "Projects",
-        titulo_tecnologias: "My Technologies",
-        titulo_contato: "Get in Touch",
-        email: "Send me an email:",
-        btn_whatsapp: "WhatsApp",
-        btn_download_cv: "Download CV", 
-        text_direitos :"© 2025 All rights reserved."
-      }
-    };
-
-    let currentLang = "pt";
-    function toggleLanguage() {
-      currentLang = currentLang === "pt" ? "en" : "pt";
-      const elements = document.querySelectorAll("[data-translate]");
-
-      elements.forEach(el => {
-        const key = el.getAttribute("data-translate");
-        el.textContent = translations[currentLang][key];
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+      const swiper = new Swiper(".swiper", {
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
       });
-    }
-    function updateCVLink(lang) {
-  const downloadBtn = document.getElementById("downloadCV");
-  if (downloadBtn) {
-    downloadBtn.href = lang === "pt" ? "cv-pt.pdf" : "cv-en.pdf";
-    downloadBtn.innerText = lang === "pt" ? "Baixar Currículo" : "Download CV";
-  }
-}
 
-  </script>
+      function scrollToSection(id) {
+        document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+      }
+
+      function toggleDarkMode() {
+        const body = document.getElementById("body");
+        const sections = document.querySelectorAll("section, footer");
+        const projectBoxes = document.querySelectorAll(".project-box");
+        const isDark = body.classList.contains("bg-gray-900");
+
+        if (isDark) {
+          body.classList.remove("bg-gray-900", "text-white");
+          body.classList.add("bg-white", "text-gray-900");
+          sections.forEach(sec => sec.classList.add("bg-white", "text-gray-900"));
+          projectBoxes.forEach(box => box.classList.add("bg-gray-100", "text-gray-900"));
+        } else {
+          body.classList.remove("bg-white", "text-gray-900");
+          body.classList.add("bg-gray-900", "text-white");
+          sections.forEach(sec => sec.classList.remove("bg-white", "text-gray-900"));
+          projectBoxes.forEach(box => box.classList.remove("bg-gray-100", "text-gray-900"));
+        }
+      }
+
+      function toggleMenu() {
+        document.getElementById("menu").classList.toggle("hidden");
+      }
+
+      const translations = {
+        pt: {
+          menu_sobre: "Sobre",
+          menu_projetos: "Projetos",
+          menu_contato: "Contato",
+          hero_titulo: "Oie, sou a Érica Ribeiro!",
+          hero_texto: "Crio soluções completas para web e mobile, atuando no desenvolvimento frontend e backend com eficiência e criatividade.",
+          btn_ver_projetos: "Ver Projetos",
+          titulo_sobre: "Sobre mim",
+          texto_sobre: "Estou em busca da minha primeira oportunidade na área de TI, com foco em programação. No momento estudo Desenvolvimento em Flutter para desenvolver interfaces web e aplicativos móveis, e estou no 5º semestre de Análise e Desenvolvimento de Sistemas. Estou pronta para ganhar experiência prática e continuar aprendendo. Sou autodidata, busco me atualizar constantemente com cursos online e novos desafios.",
+          titulo_projetos: "Projetos",
+          titulo_tecnologias: "Minhas Tecnologias",
+          titulo_contato: "Entre em contato",
+          email: "Me envie um e-mail:",
+          btn_whatsapp: "WhatsApp",
+          btn_download_cv: "Baixar Currículo",
+          text_direitos: "© 2025 Todos os direitos reservados"
+        },
+        en: {
+          menu_sobre: "About",
+          menu_projetos: "Projects",
+          menu_contato: "Contact",
+          hero_titulo: "Hi, I'm Érica Ribeiro!",
+          hero_texto: "I create complete solutions for web and mobile, working with frontend and backend development efficiently and creatively.",
+          btn_ver_projetos: "See Projects",
+          titulo_sobre: "About Me",
+          texto_sobre: "I am looking for my first opportunity in the IT field, focusing on programming. I am currently studying Flutter development to create web interfaces and mobile applications, and I’m in the 5th semester of my degree in Systems Analysis and Development. I’m ready to gain practical experience and keep learning. I’m self-taught and constantly seek to update myself through online courses and new challenges.",
+          titulo_projetos: "Projects",
+          titulo_tecnologias: "My Technologies",
+          titulo_contato: "Get in Touch",
+          email: "Send me an email:",
+          btn_whatsapp: "WhatsApp",
+          btn_download_cv: "Download CV",
+          text_direitos: "© 2025 All rights reserved."
+        }
+      };
+
+      let currentLang = "pt";
+      function toggleLanguage() {
+        currentLang = currentLang === "pt" ? "en" : "pt";
+        const elements = document.querySelectorAll("[data-translate]");
+
+        elements.forEach(el => {
+          const key = el.getAttribute("data-translate");
+          el.textContent = translations[currentLang][key];
+        });
+      }
+      function updateCVLink(lang) {
+        const downloadBtn = document.getElementById("downloadCV");
+        if (downloadBtn) {
+          downloadBtn.href = lang === "pt" ? "cv-pt.pdf" : "cv-en.pdf";
+          downloadBtn.innerText = lang === "pt" ? "Baixar Currículo" : "Download CV";
+        }
+      }
+
+    </script>
 </body>
-</html>
 
+</html>
