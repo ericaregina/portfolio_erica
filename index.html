@@ -5,459 +5,824 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Portfólio | Érica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
   <style>
+    :root {
+      --pink: #f0428a;
+      --pink-soft: #f7a8ce;
+      --bg: #0a0a0f;
+      --surface: #12121a;
+      --surface2: #1a1a26;
+      --text: #f0eef8;
+      --muted: #6b6880;
+      --border: rgba(240,66,138,0.15);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      transition: background 0.4s, color 0.4s;
+    }
+
+    body.light-mode {
+      --bg: #f8f6ff;
+      --surface: #ffffff;
+      --surface2: #f0ecff;
+      --text: #1a1630;
+      --muted: #8a85a0;
+      --border: rgba(240,66,138,0.2);
+    }
+
+    /* Noise grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.4;
+    }
+
+    /* Ambient glow blobs */
+    .blob {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .blob-1 {
+      width: 500px; height: 500px;
+      background: rgba(240,66,138,0.07);
+      top: -100px; left: -100px;
+    }
+    .blob-2 {
+      width: 400px; height: 400px;
+      background: rgba(100,60,255,0.05);
+      bottom: 20%; right: -80px;
+    }
+
+    /* ---- HEADER ---- */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 18px 32px;
+      background: rgba(10,10,15,0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    body.light-mode header {
+      background: rgba(248,246,255,0.8);
+    }
+
+    .github-link {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .github-link:hover { color: var(--pink); }
+
+    nav a {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.2s;
+      text-decoration: none;
+    }
+    nav a:hover { color: var(--pink); }
+
+    .btn-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-icon:hover { border-color: var(--pink); background: rgba(240,66,138,0.1); }
+
+    .btn-lang {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      padding: 6px 14px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+      color: var(--muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-lang:hover { border-color: var(--pink); color: var(--pink); }
+
+    /* ---- HERO ---- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 60px 24px;
+      position: relative;
+    }
+
+    .hero-avatar-wrapper {
+      position: relative;
+      margin-bottom: 40px;
+    }
+    .hero-avatar-wrapper::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      background: conic-gradient(var(--pink), rgba(100,60,255,0.8), var(--pink));
+      animation: spin 6s linear infinite;
+      z-index: 0;
+    }
+    .hero-avatar-wrapper::after {
+      content: '';
+      position: absolute;
+      inset: -2px;
+      border-radius: 50%;
+      background: var(--bg);
+      z-index: 1;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .hero-avatar {
+      position: relative;
+      z-index: 2;
+      width: 140px; height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+    }
+    @media (min-width: 640px) { .hero-avatar { width: 168px; height: 168px; } }
+    @media (min-width: 768px) { .hero-avatar { width: 200px; height: 200px; } }
+
+    .hero h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 16px;
+      background: linear-gradient(135deg, var(--text) 40%, var(--pink-soft));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: clamp(14px, 2vw, 17px);
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: var(--pink);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: 100px;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 0 24px rgba(240,66,138,0.3);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(240,66,138,0.45);
+    }
+
+    /* ---- SECTIONS ---- */
+    section {
+      position: relative;
+      z-index: 1;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--pink);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 24px;
+    }
+
+    /* ---- ABOUT ---- */
+    #sobre {
+      padding: 100px 24px;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    #sobre p {
+      color: var(--muted);
+      line-height: 1.85;
+      font-size: 15px;
+    }
+
+    /* Divider */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+      margin: 0;
+    }
+
+    /* ---- PROJECTS ---- */
+  /* ---- PROJECTS ---- */
+#projetos {
+  padding: 100px 24px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ---- SWIPER (CARROSSEL LIMPO, SEM CARD) ---- */
+.swiper {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  background: transparent;
+}
+
+/* Slides sem fundo, sem borda, sem sombra */
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0 10px; /* espaçamento lateral leve */
+}
+
+/* ---- IMAGENS RESPONSIVAS ---- */
+.swiper-slide img {
+  width: 100%;
+  height: auto;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 16px; /* opcional: deixa mais elegante */
+  transition: transform 0.3s ease;
+}
+
+/* Efeito hover moderno */
+.swiper-slide img:hover {
+  transform: scale(1.03);
+}
+
+/* ---- RESPONSIVIDADE ---- */
+@media (min-width: 768px) {
+  .swiper-slide img {
+    max-height: 500px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .swiper-slide img {
+    max-height: 600px;
+  }
+}
+
+/* ---- TECH + CERTS GRID ---- */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  margin-top: 64px;
+}
+
+@media (min-width: 640px) {
+  .info-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Mantive seus cards abaixo (não mexi neles) */
+.info-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+}
+
+.info-card h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--text);
+}
+
+    .tech-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 5px 12px;
+      margin: 4px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: var(--surface2);
+      transition: all 0.2s;
+    }
+    .tech-tag:hover {
+      border-color: var(--pink);
+      color: var(--pink);
+    }
+
+    .cert-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .cert-item:last-child { border-bottom: none; }
+
+    .cert-badge {
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 10px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      color: var(--pink);
+      background: rgba(240,66,138,0.1);
+      border: 1px solid rgba(240,66,138,0.25);
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .cert-badge:hover {
+      background: rgba(240,66,138,0.2);
+      box-shadow: 0 0 12px rgba(240,66,138,0.2);
+    }
+
+    .cert-name {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ---- CONTACT ---- */
+    #contato {
+      padding: 100px 24px;
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    #contato p {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 32px;
+    }
+
+    #contato a.email-link {
+      color: var(--pink);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(240,66,138,0.4);
+      transition: border-color 0.2s;
+    }
+    #contato a.email-link:hover { border-color: var(--pink); }
+
+    .contact-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-top: 8px;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-secondary.filled {
+      background: var(--pink);
+      color: #fff;
+      border: 1px solid transparent;
+      box-shadow: 0 0 24px rgba(240,66,138,0.25);
+    }
+    .btn-secondary.filled:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(240,66,138,0.4);
+    }
+    .btn-secondary.outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-secondary.outline:hover {
+      border-color: var(--pink);
+      color: var(--pink);
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ---- FADE IN ---- */
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(28px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-
     .animate-fade-in-up {
-      animation: fadeInUp 0.8s ease-out both;
+      animation: fadeInUp 0.9s cubic-bezier(0.16,1,0.3,1) both;
     }
 
-    @media (max-width: 640px) {
-      h2 {
-        font-size: 2rem;
-      }
-
-      .swiper {
-        width: 100%;
-      }
-
-      .project-box {
-        padding: 1rem;
-      }
+    /* Mobile menu */
+    #menu.open {
+      display: flex !important;
+      flex-direction: column;
+      padding-top: 16px;
     }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
   </style>
 </head>
 
-<body class="bg-gray-900 text-white font-sans transition-colors duration-300" id="body">
+<body id="body">
 
+  <!-- Ambient blobs -->
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
 
-  <header class="p-5 shadow-lg">
-    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center">
-      <div class="flex justify-between items-center">
-        <a href="https://github.com/ericaregina" target="_blank"
-          class="text-sm sm:text-base font-bold text-gray-400 hover:text-pink-400 transition inline-flex items-center">
-          <img
-            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNlZDY0YzgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1naXRodWItaWNvbiBsdWNpZGUtZ2l0aHViIj48cGF0aCBkPSJNMTUgMjJ2LTRhNC44IDQuOCAwIDAgMC0xLTMuNWMzIDAgNi0yIDYtNS41LjA4LTEuMjUtLjI3LTIuNDgtMS0zLjUuMjgtMS4xNS4yOC0yLjM1IDAtMy41IDAgMC0xIDAtMyAxLjUtMi42NC0uNS01LjM2LS41LTggMEM2IDIgNSAyIDUgMmMtLjMgMS4xNS0uMyAyLjM1IDAgMy41QTUuNDAzIDUuNDAzIDAgMCAwIDQgOWMwIDMuNSAzIDUuNSA2IDUuNS0uMzkuNDktLjY4IDEuMDUtLjg1IDEuNjUtLjE3LjYtLjIyIDEuMjMtLjE1IDEuODV2NCIvPjxwYXRoIGQ9Ik05IDE4Yy00LjUxIDItNS0yLTctMiIvPjwvc3ZnPg=="
-            width="24" height="24" class="mr-2" />
-          https://github.com/ericaregina
-        </a>
-        <button class="sm:hidden text-xl ml-4" onclick="toggleMenu()">
-          <img
-            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNlZDY0YzgiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1jaXJjbGUtZWxsaXBzaXMtaWNvbiBsdWNpZGUtY2lyY2xlLWVsbGlwc2lzIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIvPjxwYXRoIGQ9Ik0xNyAxMmguMDEiLz48cGF0aCBkPSJNMTIgMTJoLjAxIi8+PHBhdGggZD0iTTcgMTJoLjAxIi8+PC9zdmc+"
-            class="icon mr-2" width="24" height="24" />
+  <!-- HEADER -->
+  <header>
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+      <a href="https://github.com/ericaregina" target="_blank" class="github-link">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmMDQyOGEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTUgMjJ2LTRhNC44IDQuOCAwIDAgMC0xLTMuNWMzIDAgNi0yIDYtNS41LjA4LTEuMjUtLjI3LTIuNDgtMS0zLjUuMjgtMS4xNS4yOC0yLjM1IDAtMy41IDAgMC0xIDAtMyAxLjUtMi42NC0uNS01LjM2LS41LTggMEM2IDIgNSAyIDUgMmMtLjMgMS4xNS0uMyAyLjM1IDAgMy41QTUuNDAzIDUuNDAzIDAgMCAwIDQgOWMwIDMuNSAzIDUuNSA2IDUuNS0uMzkuNDktLjY4IDEuMDUtLjg1IDEuNjUtLjE3LjYtLjIyIDEuMjMtLjE1IDEuODV2NCIvPjxwYXRoIGQ9Ik05IDE4Yy00LjUxIDItNS0yLTctMiIvPjwvc3ZnPg==" width="18" height="18" />
+        github.com/ericaregina
+      </a>
+
+      <div style="display:flex; align-items:center; gap:16px; flex-wrap:wrap;">
+        <!-- Desktop nav -->
+        <nav id="menu" style="display:flex; align-items:center; gap:28px;" class="hidden-mobile">
+          <a onclick="scrollToSection('sobre')" data-translate="menu_sobre">Sobre</a>
+          <a onclick="scrollToSection('projetos')" data-translate="menu_projetos">Projetos</a>
+          <a onclick="scrollToSection('contato')" data-translate="menu_contato">Contato</a>
+        </nav>
+
+        <button onclick="toggleDarkMode()" class="btn-icon">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmMDQyOGEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48cGF0aCBkPSJNMTIgMnYyIi8+PHBhdGggZD0ibTQuOTMgNC45MyAxLjQxIDEuNDEiLz48cGF0aCBkPSJNMjAgMTJoMiIvPjxwYXRoIGQ9Im0xOS4wNyA0LjkzLTEuNDEgMS40MSIvPjxwYXRoIGQ9Ik0xNS45NDcgMTIuNjVhNCA0IDAgMCAwLTUuOTI1LTQuMTI4Ii8+PHBhdGggZD0iTTEzIDIySDdhNSA1IDAgMSAxIDQuOS02SDEzYTMgMyAwIDAgMSAwIDZaIi8+PC9zdmc+" width="16" height="16" />
+        </button>
+
+        <button onclick="toggleLanguage()" class="btn-lang">PT | ENG</button>
+
+        <!-- Mobile hamburger -->
+        <button onclick="toggleMenu()" style="display:none;" id="hamburger" class="btn-icon">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxOCIgaGVpZ2h0PSIxOCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNmMDQyOGEiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj48bGluZSB4MT0iMyIgeTE9IjYiIHgyPSIyMSIgeTI9IjYiLz48bGluZSB4MT0iMyIgeTE9IjEyIiB4Mj0iMjEiIHkyPSIxMiIvPjxsaW5lIHgxPSIzIiB5MT0iMTgiIHgyPSIyMSIgeTI9IjE4Ii8+PC9zdmc+" width="16" height="16" />
         </button>
       </div>
-      <nav id="menu" class="hidden sm:flex flex-col sm:flex-row sm:items-center sm:space-x-4 mt-4 sm:mt-0">
-        <ul class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 text-center">
-          <li><a onclick="scrollToSection('sobre')" class="hover:text-pink-400 cursor-pointer"
-              data-translate="menu_sobre">Sobre</a></li>
-          <li><a onclick="scrollToSection('projetos')" class="hover:text-pink-400 cursor-pointer"
-              data-translate="menu_projetos">Projetos</a></li>
-          <li><a onclick="scrollToSection('contato')" class="hover:text-pink-400 cursor-pointer"
-              data-translate="menu_contato">Contato</a></li>
-        </ul>
-        <div class="flex justify-center items-center space-x-6">
-          <button onclick="toggleDarkMode()"
-            class="bg-gray-300 px-2 py-1 rounded-full hover:bg-pink-500 transition ml-4">
-            <img
-              src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWNsb3VkLXN1bi1pY29uIGx1Y2lkZS1jbG91ZC1zdW4iPjxwYXRoIGQ9Ik0xMiAydjIiLz48cGF0aCBkPSJtNC45MyA0LjkzIDEuNDEgMS40MSIvPjxwYXRoIGQ9Ik0yMCAxMmgyIi8+PHBhdGggZD0ibTE5LjA3IDQuOTMtMS40MSAxLjQxIi8+PHBhdGggZD0iTTE1Ljk0NyAxMi42NWE0IDQgMCAwIDAtNS45MjUtNC4xMjgiLz48cGF0aCBkPSJNMTMgMjJIN2E1IDUgMCAxIDEgNC45LTZIMTNhMyAzIDAgMCAxIDAgNloiLz48L3N2Zz4="
-              width="18" height="18" />
-          </button>
-          <button onclick="toggleLanguage()"
-            class="bg-gray-300 px-1 py-0.5 rounded-full hover:bg-pink-500 transition ml-4 text-black">
-            PT | ENG
-          </button>
-        </div>
-
-
-      </nav>
     </div>
+
+    <!-- Mobile nav dropdown -->
+    <nav id="mobile-menu" style="display:none; flex-direction:column; gap:16px; padding-top:20px;">
+      <a onclick="scrollToSection('sobre'); closeMobileMenu()" data-translate="menu_sobre" style="font-size:14px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); cursor:pointer; text-decoration:none;">Sobre</a>
+      <a onclick="scrollToSection('projetos'); closeMobileMenu()" data-translate="menu_projetos" style="font-size:14px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); cursor:pointer; text-decoration:none;">Projetos</a>
+      <a onclick="scrollToSection('contato'); closeMobileMenu()" data-translate="menu_contato" style="font-size:14px; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); cursor:pointer; text-decoration:none;">Contato</a>
+    </nav>
   </header>
 
-  <section class="flex flex-col items-center justify-center min-h-screen text-center px-4 animate-fade-in-up">
-    <div class="mb-10">
-      <img src="perfil.jpg" alt="Foto"
-        class="w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 rounded-full shadow-lg object-cover border-4 border-pink-500 select-none pointer-events-none"
-        oncontextmenu="return false;" draggable="false" /> 
+  <!-- Responsive nav tweak -->
+  <style>
+    @media (max-width: 640px) {
+      .hidden-mobile { display: none !important; }
+      #hamburger { display: inline-flex !important; }
+    }
+  </style>
+
+  <!-- HERO -->
+  <section class="hero animate-fade-in-up">
+    <div class="hero-avatar-wrapper">
+      <img src="perfil.jpg" alt="Foto" class="hero-avatar" oncontextmenu="return false;" draggable="false" />
     </div>
-    <h2 class="text-3xl sm:text-5xl font-extrabold mb-4" data-translate="hero_titulo">Oie, sou a Érica Ribeiro!</h2>
-    <p class="text-lg sm:text-xl text-gray-500 max-w-xl" data-translate="hero_texto">
+    <h2 data-translate="hero_titulo">Oie, sou a Érica Ribeiro!</h2>
+    <p data-translate="hero_texto">
       Análise e Desenvolvimento de Sistemas | Desenvolvedora Full Stack | Business Intelligence
     </p>
-    <button onclick="scrollToSection('projetos')"
-      class="mt-6 bg-pink-500 hover:bg-pink-600 text-white py-2 px-4 rounded-xl transition-all"
-      data-translate="btn_ver_projetos">
+    <button onclick="scrollToSection('projetos')" class="btn-primary" data-translate="btn_ver_projetos">
       Ver Projetos
     </button>
   </section>
 
+  <div class="divider"></div>
 
-  <section id="sobre" class="p-6 sm:p-8 animate-fade-in-up">
-  <h3 class="text-3xl font-bold mb-4 text-center" data-translate="titulo_sobre">Sobre mim</h3>
-  <p class="text-gray-500 text-center break-words whitespace-normal" data-translate="texto_sobre">
-Graduada em Análise e Desenvolvimento de Sistemas, tenho me dedicado ao aprendizado e prática no desenvolvimento web e mobile, além da área de testes de software. Tenho conhecimentos em HTML, CSS, Tailwind, JavaScript, MySQL e consumo de APIs, além de já ter feito projetos com frameworks como React.js, Node.js e Express.js.
+  <!-- SOBRE -->
+  <section id="sobre" class="animate-fade-in-up">
+    <span class="section-label" style="display:block; text-align:center;">01 — ABOUT</span>
+    <h3 class="section-title" style="text-align:center;" data-translate="titulo_sobre">Sobre mim</h3>
+    <p data-translate="texto_sobre">
+ Graduada em Análise e Desenvolvimento de Sistemas, tenho me dedicado ao aprendizado e prática no desenvolvimento web e mobile, além da área de testes de software. Tenho conhecimentos em HTML, CSS, Tailwind, JavaScript, MySQL e consumo de APIs, além de já ter desenvolvido projetos com frameworks como React.js, Node.js e Express.js. Utilizo Git para versionamento de código e estou familiarizada com metodologias ágeis como Scrum e Kanban. Também possuo experiência com testes manuais e automatizados (Jest e Cypress), além de práticas de QA utilizando a IDE Eclipse.
 
-Utilizo Git para versionamento de código e estou familiarizada com metodologias ágeis como Scrum e Kanban. Também tenho experiência com testes manuais e automatizados (Jest e Cypress), além de práticas de QA utilizando a IDE Eclipse.
+Tenho desenvolvido continuamente minhas habilidades em Análise de Dados, atuando na transformação de dados em insights estratégicos para o negócio. Trabalho com Power BI (Desktop e Service), Power Query e Metabase na construção de dashboards interativos e na modelagem de dados, utilizando SQL e DAX para garantir análises consistentes e eficientes. Possuo experiência com processos de ETL, integração de dados via APIs e manipulação de bancos de dados, assegurando a qualidade e confiabilidade das informações ao longo de todo o fluxo de dados.
 
-Tenho desenvolvido continuamente minhas habilidades em Análise de Dados, aplicando Power BI (Desktop e Service), Power Query e Metabase para transformar, modelar e apresentar informações de forma clara e eficiente. Atuo em projetos com SQL, DAX, ETL, integração com APIs, bancos de dados e Power Automate, garantindo automação e distribuição de relatórios.
+Atuo no desenvolvimento de dashboards end-to-end, desde a coleta e tratamento dos dados até a construção de visualizações e publicação. Como exemplo de projeto, realizei a extração e integração de dados de um sistema ERP e do GLPI, estruturando o fluxo de dados e desenvolvendo dashboards completos para análise e acompanhamento de indicadores. Além disso, trabalho com automação de processos e relatórios utilizando Power Automate e automações simples com n8n, focadas na integração de dados e otimização de rotinas. Também tenho vivência na comunicação com stakeholders, entendendo necessidades de negócio e traduzindo-as em soluções orientadas a dados.
+    </p>
+  </section>
 
-Também utilizo Python para análise de dados, manipulação de dataframes e geração de gráficos, fortalecendo a tomada de decisão por meio de soluções analíticas dinâmicas e inteligentes. </p>
-</section>
+  <div class="divider"></div>
 
+  <!-- PROJETOS -->
+  <section id="projetos" class="animate-fade-in-up">
+    <span class="section-label" style="display:block; text-align:center;">02 — WORK</span>
+    <h3 class="section-title" style="text-align:center;" data-translate="titulo_projetos">Projetos</h3>
 
-  <section id="projetos" class="p-6 sm:p-8 animate-fade-in-up">
-    <h3 class="text-3xl font-bold mb-6 text-center" data-translate="titulo_projetos">Projetos</h3>
-
-
-    <div class="swiper w-full max-w-xl mx-auto">
+    <div class="swiper">
       <div class="swiper-wrapper">
-
+        <div class="swiper-slide"><img src="appstore.png" alt="Projeto 1" /></div>
+        <div class="swiper-slide"><img src="dior.png" alt="Projeto 2" /></div>
+        <div class="swiper-slide"><img src="belle.jpg" alt="Projeto 3" /></div>
         <div class="swiper-slide">
-          <img src="appstore.png" alt="Projeto 1" class="rounded-xl max-w-full h-auto" />
-        </div>
-
-        <div class="swiper-slide">
-          <img src="dior.png" alt="Projeto 2" class="rounded-xl max-w-full h-auto" />
-        </div>
-
-        <div class="swiper-slide">
-          <img src="belle.jpg" alt="Projeto 3" class="rounded-xl max-w-full h-auto" />
-        </div>
-
-
-        <div class="swiper-slide">
-          <video class="rounded-xl  w-[150px] mx-auto h-auto" autoplay muted loop playsinline>
+          <video autoplay muted loop playsinline>
             <source src="video.mp4" type="video/mp4" />
-            Seu navegador não suporta vídeos em HTML5.
           </video>
         </div>
-
-
-
+        <div class="swiper-slide"><img src="beauty1.jpg" alt="Projeto 4" /></div>
         <div class="swiper-slide">
-          <img src="beauty1.jpg" alt="Projeto 4" class="rounded-xl  w-[150px] mx-auto h-auto" />
-        </div>
-
-
-
-
-        <div class="swiper-slide">
-          <video class="rounded-xl  w-[150px] mx-auto h-auto" autoplay muted loop playsinline>
+          <video autoplay muted loop playsinline>
             <source src="inova.mp4" type="video/mp4" />
-            Seu navegador não suporta vídeos em HTML5.
           </video>
         </div>
+      </div>
+      <div class="swiper-pagination" style="padding: 12px 0;"></div>
+    </div>
 
+    <!-- Info Grid -->
+    <div class="info-grid">
 
-
-        <div class="swiper-pagination" style="position: relative; bottom: -30px;"></div>
-
+      <!-- Technologies -->
+      <div class="info-card">
+        <h4 data-translate="titulo_tecnologias">Minhas Tecnologias</h4>
+        <div>
+          <span class="tech-tag">Scrum / Kanban</span>
+          <span class="tech-tag">HTML5 / CSS3</span>
+          <span class="tech-tag">JavaScript</span>
+          <span class="tech-tag">Express.js</span>
+          <span class="tech-tag">Next.js</span>
+          <span class="tech-tag">Node.js</span>
+          <span class="tech-tag">React</span>
+          <span class="tech-tag">TypeScript</span>
+          <span class="tech-tag">Flutter</span>
+          <span class="tech-tag">Tailwind CSS</span>
+          <span class="tech-tag">Material UI</span>
+          <span class="tech-tag">QA</span>
+          <span class="tech-tag">Eclipse</span>
+          <span class="tech-tag">Jest</span>
+          <span class="tech-tag">Cypress</span>
+          <span class="tech-tag">MySQL</span>
+          <span class="tech-tag">Postman</span>
+          <span class="tech-tag">Power BI</span>
+          <span class="tech-tag">Power Query</span>
+          <span class="tech-tag">Power Automate</span>
+          <span class="tech-tag">Python ETL</span>
+        </div>
       </div>
 
+      <!-- Certifications -->
+      <div class="info-card">
+        <h4 data-translate="titulo_certificacoes">Minhas Certificações</h4>
+        <div>
+          <div class="cert-item">
+            <a href="Certificado.ingles.jpg" download target="_blank" class="cert-badge">↓ Download</a>
+            <span class="cert-name" data-translate="cert_ingles">SENAI - Inglês</span>
+          </div>
+          <div class="cert-item">
+            <a href="algoritmoselogica.jpg" download target="_blank" class="cert-badge">↓ Download</a>
+            <span class="cert-name" data-translate="cert_algoritmos">Udemy - Algoritmos e Lógica de Programação</span>
+          </div>
+          <div class="cert-item">
+            <a href="Certificado - javascript.pdf" download target="_blank" class="cert-badge">↓ Download</a>
+            <span class="cert-name" data-translate="cert_javascript">Udemy - JavaScript com Node.js</span>
+          </div>
+          <div class="cert-item">
+            <a href="Banco de dados em aplicações móveis .pdf" download target="_blank" class="cert-badge">↓ Download</a>
+            <span class="cert-name" data-translate="cert_bd_mobile">SENAI - Banco de Dados em Aplicações Móveis</span>
+          </div>
+          <div class="cert-item">
+            <a href="Certificado.pdf" download target="_blank" class="cert-badge">↓ Download</a>
+            <span class="cert-name" data-translate="cert_bd_relacional">Udemy - Banco de Dados Relacional</span>
+          </div>
+          <div class="cert-item">
+            <a href="Introdução ao Desenvolvimento Móvel .pdf" download target="_blank" class="cert-badge">↓ Download</a>
+            <span class="cert-name" data-translate="cert_dev_mobile">SENAI - Introdução ao Desenvolvimento Móvel</span>
+          </div>
+          <div class="cert-item">
+            <a href="Metodologias Ágeis para Desenvolvimento de Software .pdf" download target="_blank" class="cert-badge">↓ Download</a>
+            <span class="cert-name" data-translate="cert_metodologias">SENAI - Metodologias Ágeis Para Desenvolvimento Software</span>
+          </div>
+          <div class="cert-item">
+            <a href="POO.pdf" download target="_blank" class="cert-badge">↓ Download</a>
+            <span class="cert-name" data-translate="cert_poo">SENAI - Programação Orientada a Objetos</span>
+          </div>
+          <div class="cert-item">
+            <a href="ENTRA21.pdf" download target="_blank" class="cert-badge">↓ Download</a>
+            <span class="cert-name" data-translate="cert_entra21">SENAI - Entra21 (HTML, CSS, JavaScript, GIT, Python básico)</span>
+          </div>
+          <div class="cert-item">
+            <a href="Certificado - Power BI.jpg" download target="_blank" class="cert-badge">↓ Download</a>
+            <span class="cert-name" data-translate="cert_bi">Udemy - Power BI do Básico ao Avançado</span>
+          </div>
+          <div class="cert-item">
+            <a href="certificado_datascience.png" download target="_blank" class="cert-badge">↓ Download</a>
+            <span class="cert-name" data-translate="cert_datascience">Data Science Academy - Microsoft Power BI Para Business Intelligence e Data Science</span>
+          </div>
+          <div class="cert-item">
+            <a href="certificado_qa.jpg" download target="_blank" class="cert-badge">↓ Download</a>
+            <span class="cert-name" data-translate="cert_q">Udemy - Quality Assurance</span>
+          </div>
+        </div>
+      </div>
 
+    </div>
+  </section>
 
-<div class="flex flex-col gap-y-12 mt-8">
+  <div class="divider"></div>
 
+  <!-- CONTATO -->
+  <section id="contato" class="animate-fade-in-up">
+    <span class="section-label" style="display:block; text-align:center;">03 — CONTACT</span>
+    <h3 class="section-title" style="text-align:center;" data-translate="titulo_contato">Entre em contato</h3>
+    <p>
+      <span data-translate="email">Me envie um e-mail:</span>
+      <a href="mailto:ribeiroericacomc@gmail.com" class="email-link">ribeiroericacomc@gmail.com</a>
+    </p>
+    <div class="contact-btns">
+      <a href="https://wa.me/5547992806411?text=Olá%20Erica%2C%20vi%20seu%20portfólio%20e%20gostaria%20de%20falar%20com%20você!" target="_blank" class="btn-secondary filled" data-translate="btn_whatsapp">WhatsApp</a>
+      <a id="downloadCV" href="Curriculo Erica Ribeiro.pdf" download class="btn-secondary outline" data-translate="btn_download_cv">Baixar Currículo</a>
+    </div>
+  </section>
 
-  <div class="w-full">
-    <h4 class="dark:text-white text-center font-semibold mb-4" data-translate="titulo_tecnologias">
-      Minhas Tecnologias
-    </h4>
-    <ul class="list-disc list-inside text-gray-500 dark:text-gray-500 space-y-1">
-      <li>Agile Methodologies (Scrum, Kanban)</li>
-      <li>HTML5 / CSS3</li>
-      <li>JavaScript (Express.js, Next.js, Node.js, React)</li>
-      <li>TypeScript</li>
-      <li>Flutter</li>
-      <li>Tailwind CSS</li>
-      <li>Material UI</li>
-      <li>Quality Assurance</li>
-      <li>Eclipse</li>
-      <li>Jest | Cypress</li>
-      <li>MySQL</li>
-      <li>Postman</li>
-      <li>Power BI | Power Query | Power Automate</li>
-      <li>Python ETL</li>
-    </ul>
-  </div>
+  <!-- FOOTER -->
+  <footer data-translate="text_direitos">© 2025 Todos os direitos reservados.</footer>
 
- 
-  <div class="w-full">
-    <h4 class="dark:text-white text-center font-semibold mb-4" data-translate="titulo_certificacoes">
-      Minhas Certificações
-    </h4>
-    <ul class="space-y-4 text-gray-500 dark:text-gray-500">
-      <li>
-        <a href="Certificado.ingles.jpg" download target="_blank"
-          class="inline-block px-3 py-1 text-xs font-medium text-pink-400 bg-pink-200 bg-opacity-30 
-          rounded-full hover:bg-opacity-50 hover:text-pink-600 transition">
-          Download
-        </a>
-        <div data-translate="cert_ingles">SENAI - Inglês</div>
-      </li>
-      <li>
-        <a href="algoritmoselogica.jpg" download target="_blank"
-          class="inline-block px-3 py-1 text-xs font-medium text-pink-400 bg-pink-200 bg-opacity-30 
-          rounded-full hover:bg-opacity-50 hover:text-pink-600 transition">
-          Download
-        </a>
-        <div data-translate="cert_algoritmos">Udemy - Algoritmos e Lógica de Programação</div>
-      </li>
-      <li>
-        <a href="Certificado - javascript.pdf" download target="_blank"
-          class="inline-block px-3 py-1 text-xs font-medium text-pink-400 bg-pink-200 bg-opacity-30 
-          rounded-full hover:bg-opacity-50 hover:text-pink-600 transition">
-          Download
-        </a>
-        <div data-translate="cert_javascript">Udemy - JavaScript com Node.js</div>
-      </li>
-      <li>
-        <a href="Banco de dados em aplicações móveis .pdf" download target="_blank"
-          class="inline-block px-3 py-1 text-xs font-medium text-pink-400 bg-pink-200 bg-opacity-30 
-          rounded-full hover:bg-opacity-50 hover:text-pink-600 transition">
-          Download 
-        </a>
-        <div data-translate="cert_bd_mobile">SENAI - Banco de Dados em Aplicações Móveis</div>
-      </li>
-      <li>
-        <a href="Certificado.pdf" download target="_blank"
-          class="inline-block px-3 py-1 text-xs font-medium text-pink-400 bg-pink-200 bg-opacity-30 
-          rounded-full hover:bg-opacity-50 hover:text-pink-600 transition">
-          Download 
-        </a>
-        <div data-translate="cert_bd_relacional">Udemy - Banco de Dados Relacional</div>
-      </li>
-      <li>
-        <a href="Introdução ao Desenvolvimento Móvel .pdf" download target="_blank"
-          class="inline-block px-3 py-1 text-xs font-medium text-pink-400 bg-pink-200 bg-opacity-30 
-          rounded-full hover:bg-opacity-50 hover:text-pink-600 transition">
-          Download 
-        </a>
-        <div data-translate="cert_dev_mobile">SENAI - Introdução ao Desenvolvimento Móvel</div>
-      </li>
-      <li>
-        <a href="Metodologias Ágeis para Desenvolvimento de Software .pdf" download target="_blank"
-          class="inline-block px-3 py-1 text-xs font-medium text-pink-400 bg-pink-200 bg-opacity-30 
-          rounded-full hover:bg-opacity-50 hover:text-pink-600 transition">
-          Download 
-        </a>
-        <div data-translate="cert_metodologias">SENAI - Metodologias Ágeis Para Desenvolvimento Software</div>
-      </li>
-      <li>
-        <a href="POO.pdf" download target="_blank"
-          class="inline-block px-3 py-1 text-xs font-medium text-pink-400 bg-pink-200 bg-opacity-30 
-          rounded-full hover:bg-opacity-50 hover:text-pink-600 transition">
-          Download 
-        </a>
-        <div data-translate="cert_poo">SENAI - Programação Orientada a Objetos</div>
-      </li>
-      <li>
-        <a href="ENTRA21.pdf" download target="_blank"
-          class="inline-block px-3 py-1 text-xs font-medium text-pink-400 bg-pink-200 bg-opacity-30 
-          rounded-full hover:bg-opacity-50 hover:text-pink-600 transition">
-          Download 
-        </a>
-        <div data-translate="cert_entra21">SENAI - Entra21 (HTML, CSS, JavaScript, GIT, Python básico)</div>
-      </li>
-      <li>
-        <a href="Certificado - Power BI.jpg" download target="_blank"
-          class="inline-block px-3 py-1 text-xs font-medium text-pink-400 bg-pink-200 bg-opacity-30 
-          rounded-full hover:bg-opacity-50 hover:text-pink-600 transition">
-          Download 
-        </a>
-        <div data-translate="cert_bi">Udemy - Power BI do Básico ao Avançado</div>
-      </li>
-      <li>
-        <a href="certificado_datascience.png" download target="_blank"
-          class="inline-block px-3 py-1 text-xs font-medium text-pink-400 bg-pink-200 bg-opacity-30 
-          rounded-full hover:bg-opacity-50 hover:text-pink-600 transition">
-          Download 
-        </a>
-        <div data-translate="cert_datascience">Data Science Academy - Microsoft Power BI Para Business Intelligence e Data Science</div>
-      </li>
-      <li>
-        <a href="certificado_qa.jpg" download target="_blank"
-          class="inline-block px-3 py-1 text-xs font-medium text-pink-400 bg-pink-200 bg-opacity-30 
-          rounded-full hover:bg-opacity-50 hover:text-pink-600 transition">
-          Download 
-        </a>
-        <div data-translate="cert_q">Udemy - Quality Assurance</div>
-      </li>
-    </ul>
-  </div>
-</div>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    const swiper = new Swiper(".swiper", {
+      loop: true,
+      autoplay: { delay: 3000, disableOnInteraction: false },
+      pagination: { el: ".swiper-pagination", clickable: true },
+    });
 
+    function scrollToSection(id) {
+      document.getElementById(id).scrollIntoView({ behavior: "smooth" });
+    }
 
-<section id="contato" class="p-4 sm:p-8 text-center animate-fade-in-up mt-12">
-  <h3 class="text-3xl font-bold mb-4" data-translate="titulo_contato">Entre em contato</h3>
-  <p class="text-gray-500 mb-4">
-    <span data-translate="email">Me envie um e-mail:</span> 
-    <a href="mailto:ribeiroericacomc@gmail.com" class="text-pink-400 underline">ribeiroericacomc@gmail.com</a>
-  </p>
-  <a href="https://wa.me/5547992806411?text=Olá%20Erica%2C%20vi%20seu%20portfólio%20e%20gostaria%20de%20falar%20com%20você!" 
-     target="_blank" 
-     class="bg-pink-500 hover:bg-pink-600 py-2 px-4 rounded-xl inline-block text-white" 
-     data-translate="btn_whatsapp">
-    WhatsApp
-  </a>
-  <a id="downloadCV" href="Curriculo Erica Ribeiro.pdf" 
-     download 
-     class="mt-4 bg-pink-500 hover:bg-pink-600 py-2 px-4 rounded-xl inline-block text-white" 
-     data-translate="btn_download_cv">
-    Baixar Currículo
-  </a>
-</section>
+    function toggleDarkMode() {
+      document.getElementById("body").classList.toggle("light-mode");
+    }
 
+    function toggleMenu() {
+      const m = document.getElementById("mobile-menu");
+      m.style.display = m.style.display === "flex" ? "none" : "flex";
+    }
 
-<footer class="text-center py-4 text-gray-500" data-translate="text_direitos">
-  © 2025 Todos os direitos reservados.
-</footer>
+    function closeMobileMenu() {
+      document.getElementById("mobile-menu").style.display = "none";
+    }
 
+    const translations = {
+      pt: {
+        menu_sobre: "Sobre",
+        menu_projetos: "Projetos",
+        menu_contato: "Contato",
+        hero_titulo: "Oie, sou a Érica Ribeiro!",
+        hero_texto: "Análise e Desenvolvimento de Sistemas | Desenvolvedora Full Stack | Business Intelligence",
+        btn_ver_projetos: "Ver Projetos",
+        titulo_sobre: "Sobre mim",
+        texto_sobre: "Graduada em Análise e Desenvolvimento de Sistemas, tenho me dedicado ao aprendizado e prática no desenvolvimento web e mobile, além da área de testes de software. Tenho conhecimentos em HTML, CSS, Tailwind, JavaScript, MySQL e consumo de APIs, além de já ter feito projetos com frameworks como React.js, Node.js e Express.js. Utilizo Git para versionamento de código e estou familiarizada com metodologias ágeis como Scrum e Kanban. Também tenho experiência com testes manuais e automatizados (Jest e Cypress), além de práticas de QA utilizando a IDE Eclipse. Tenho desenvolvido continuamente minhas habilidades em Análise de Dados, atuando na transformação de dados em insights estratégicos para o negócio. Trabalho com Power BI (Desktop e Service), Power Query e Metabase na construção de dashboards interativos e na modelagem de dados, utilizando SQL e DAX para garantir análises consistentes e eficientes. Possuo experiência com processos de ETL, integração de dados via APIs e manipulação de bancos de dados, assegurando a qualidade e confiabilidade das informações ao longo de todo o fluxo de dados. Atuo no desenvolvimento de dashboards end-to-end, desde a coleta e tratamento dos dados até a construção de visualizações e publicação. Como exemplo de projeto, realizei a extração e integração de dados de um sistema ERP e do GLPI, estruturando o fluxo de dados e desenvolvendo dashboards completos para análise e acompanhamento de indicadores. Além disso, trabalho com automação de processos e relatórios utilizando Power Automate e automações simples com n8n, focadas na integração de dados e otimização de rotinas. Também tenho vivência na comunicação com stakeholders, entendendo necessidades de negócio e traduzindo-as em soluções orientadas a dados.",
+        titulo_projetos: "Projetos",
+        titulo_tecnologias: "Minhas Tecnologias",
+        titulo_certificacoes: "Minhas Certificações",
+        titulo_contato: "Entre em contato",
+        email: "Me envie um e-mail:",
+        btn_whatsapp: "WhatsApp",
+        btn_download_cv: "Baixar Currículo",
+        text_direitos: "© 2025 Todos os direitos reservados.",
+        cert_ingles: "SENAI - Inglês",
+        cert_algoritmos: "Udemy - Algoritmos e Lógica de Programação",
+        cert_javascript: "Udemy - JavaScript com Node.js",
+        cert_bd_mobile: "SENAI - Banco de Dados em Aplicações Móveis",
+        cert_bd_relacional: "Udemy - Banco de Dados Relacional",
+        cert_dev_mobile: "SENAI - Introdução ao Desenvolvimento Móvel",
+        cert_metodologias: "SENAI - Metodologias Ágeis Para Desenvolvimento Software",
+        cert_poo: "SENAI - Programação Orientada a Objetos",
+        cert_entra21: "SENAI - Entra21 (HTML, CSS, JavaScript, GIT, Python básico)",
+        cert_bi: "Udemy - Power BI do Básico ao Avançado",
+        cert_datascience: "Data Science Academy - Microsoft Power BI Para Business Intelligence e Data Science",
+        cert_q: "Udemy - Quality Assurance"
+      },
+      en: {
+        menu_sobre: "About",
+        menu_projetos: "Projects",
+        menu_contato: "Contact",
+        hero_titulo: "Hi, I'm Érica Ribeiro!",
+        hero_texto: "Systems Analysis and Development | Full Stack Developer | Business Intelligence",
+        btn_ver_projetos: "See Projects",
+        titulo_sobre: "About Me",
+        texto_sobre: "Graduated in Systems Analysis and Development, I have been dedicated to learning and practicing web and mobile development, as well as software testing. I have knowledge in HTML, CSS, Tailwind, JavaScript, MySQL, and API consumption, and I have also developed projects using frameworks such as React.js, Node.js, and Express.js. I use Git for version control and I am familiar with agile methodologies such as Scrum and Kanban. I also have experience with manual and automated testing (Jest and Cypress), as well as QA practices using the Eclipse IDE. I have been continuously developing my skills in Data Analysis, working on transforming data into strategic business insights. I work with Power BI (Desktop and Service), Power Query, and Metabase to build interactive dashboards and perform data modeling, using SQL and DAX to ensure consistent and efficient analysis. I have experience with ETL processes, data integration via APIs, and database manipulation, ensuring data quality and reliability throughout the entire data pipeline. I work on end-to-end dashboard development, from data collection and transformation to visualization and publishing. As an example project, I performed data extraction and integration from an ERP system and GLPI, structuring the data flow and developing complete dashboards for analysis and KPI tracking. Additionally, I work with process and report automation using Power Automate and simple automations with n8n, focusing on data integration and workflow optimization. I also have experience communicating with stakeholders, understanding business needs, and translating them into data-driven solutions.",
+        titulo_projetos: "Projects",
+        titulo_tecnologias: "My Technologies",
+        titulo_certificacoes: "My Certifications",
+        titulo_contato: "Get in Touch",
+        email: "Send me an email:",
+        btn_whatsapp: "WhatsApp",
+        btn_download_cv: "Download CV",
+        text_direitos: "© 2025 All rights reserved.",
+        cert_ingles: "SENAI - English",
+        cert_algoritmos: "Udemy - Algorithms and Logic Programming",
+        cert_javascript: "Udemy - JavaScript with Node.js",
+        cert_bd_mobile: "SENAI - Database in Mobile Applications",
+        cert_bd_relacional: "Udemy - Relational Database",
+        cert_dev_mobile: "SENAI - Introduction to Mobile Development",
+        cert_metodologias: "SENAI - Agile Methodologies for Software Development",
+        cert_poo: "SENAI - Object Oriented Programming",
+        cert_entra21: "SENAI - Entra21 (HTML, CSS, JavaScript, GIT, Basic Python)",
+        cert_bi: "Udemy - Power BI Beginner to Advanced",
+        cert_datascience: "Data Science Academy – Microsoft Power BI for Business Intelligence and Data Science",
+        cert_q: "Udemy - Quality Assurance"
+      }
+    };
 
-      <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-      <script>
-        const swiper = new Swiper(".swiper", {
-          loop: true,
-          autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-          },
-          pagination: {
-            el: ".swiper-pagination",
-            clickable: true,
-          },
-        });
-
-        function scrollToSection(id) {
-          document.getElementById(id).scrollIntoView({ behavior: "smooth" });
-        }
-
-        function toggleDarkMode() {
-          const body = document.getElementById("body");
-          const sections = document.querySelectorAll("section, footer");
-          const projectBoxes = document.querySelectorAll(".project-box");
-          const isDark = body.classList.contains("bg-gray-900");
-
-          if (isDark) {
-            body.classList.remove("bg-gray-900", "text-white");
-            body.classList.add("bg-white", "text-gray-900");
-            sections.forEach(sec => sec.classList.add("bg-white", "text-gray-900"));
-            projectBoxes.forEach(box => box.classList.add("bg-gray-100", "text-gray-900"));
-          } else {
-            body.classList.remove("bg-white", "text-gray-900");
-            body.classList.add("bg-gray-900", "text-white");
-            sections.forEach(sec => sec.classList.remove("bg-white", "text-gray-900"));
-            projectBoxes.forEach(box => box.classList.remove("bg-gray-100", "text-gray-900"));
-          }
-        }
-
-        function toggleMenu() {
-          document.getElementById("menu").classList.toggle("hidden");
-        }
-
-        const translations = {
-  pt: {
-    menu_sobre: "Sobre",
-    menu_projetos: "Projetos",
-    menu_contato: "Contato",
-    hero_titulo: "Oie, sou a Érica Ribeiro!",
-    hero_texto: "Crio soluções completas para web e mobile, atuando no desenvolvimento frontend e backend com eficiência e criatividade.",
-    btn_ver_projetos: "Ver Projetos",
-    titulo_sobre: "Sobre mim",
-    texto_sobre: "Sou desenvolvedora especializada na criação de sites profissionais, landing pages e portfólios modernos...",
-    titulo_projetos: "Projetos",
-    titulo_tecnologias: "Minhas Tecnologias",
-    titulo_certificacoes: "Minhas Certificações",
-    
-    titulo_contato: "Entre em contato",
-    email: "Me envie um e-mail:",
-    btn_whatsapp: "WhatsApp",
-    btn_download_cv: "Baixar Currículo",
-    text_direitos: "© 2025 Todos os direitos reservados",
-    
-
-    cert_ingles: "SENAI - Inglês",
-    cert_algoritmos: "Udemy - Algoritmos e Lógica de Programação",
-    cert_javascript: "Udemy - JavaScript com Node.js",
-    cert_bd_mobile: "SENAI - Banco de Dados em Aplicações Móveis", 
-    cert_bd_relacional: "Udemy - Banco de Dados Relacional",
-    cert_dev_mobile: "SENAI - Introdução ao Desenvolvimento Móvel",
-    cert_metodologias: "SENAI - Metodologias Ágeis Para Desenvolvimento Software",
-    cert_poo: "SENAI - Programação Orientada a Objetos",
-    cert_entra21: "SENAI - Entra21 (HTML, CSS, JavaScript, GIT, Python básico)",
-    cert_bi: "Udemy - Power BI do Básico ao Avançado",
-    cert_datascience: "Data Science Academy - Microsoft Power BI Para Business Intelligence e Data Science",
-    cert_q: "Udemy - Quality Assurance"
-   
-  },
-  en: {
-    menu_sobre: "About",
-    menu_projetos: "Projects",
-    menu_contato: "Contact",
-    hero_titulo: "Hi, I'm Érica Ribeiro!",
-    hero_texto: "Systems Analysis and Development | Full Stack Developer | Business Intelligence",
-    btn_ver_projetos: "See Projects",
-    titulo_sobre: "About Me",
-    texto_sobre :"Graduated in Systems Analysis and Development, I have been dedicating myself to learning and practicing web and mobile development, as well as software testing. I have knowledge in HTML, CSS, Tailwind, JavaScript, MySQL, and API consumption, and I have also developed projects using frameworks such as React.js, Node.js, and Express.js. I use Git for version control and I am familiar with agile methodologies such as Scrum and Kanban. I also have experience with manual and automated testing (Jest and Cypress), as well as QA practices using the Eclipse IDE. I have been continuously developing my Data Analysis skills, applying Power BI (Desktop and Service), Power Query, and Metabase to transform, model, and present information clearly and efficiently. I work on projects involving SQL, DAX, ETL, API integration, databases, and Power Automate, ensuring automation and distribution of reports. I also use Python for data analysis, dataframe manipulation, and chart generation, strengthening decision-making through dynamic and intelligent analytical solutions.",
-    titulo_projetos: "Projects",
-    titulo_tecnologias: "My Technologies",
-    titulo_certificacoes: "My Certifications",
-    
-    titulo_contato: "Get in Touch",
-    email: "Send me an email:",
-    btn_whatsapp: "WhatsApp",
-    btn_download_cv: "Download CV",
-    text_direitos: "© 2025 All rights reserved.",
-    
-   
-    cert_ingles: "SENAI - English",
-    cert_algoritmos: "Udemy - Algorithms and Logic Programming",
-    cert_javascript: "Udemy - JavaScript with Node.js",
-    cert_bd_mobile: "SENAI - Database in Mobile Applications", 
-    cert_bd_relacional: "Udemy - Relational Database",
-    cert_dev_mobile: "SENAI - Introduction to Mobile Development",
-    cert_metodologias: "SENAI - Agile Methodologies for Software Development",
-    cert_poo: "SENAI - Object Oriented Programming",
-    cert_entra21: "SENAI - Entra21 (HTML, CSS, JavaScript, GIT, Basic Python)",
-    cert_bi: "Udemy - Power BI Beginner to Advanced",
-    cert_datascience: "Data Science Academy – Microsoft Power BI for Business Intelligence and Data Science",
-    cert_q:"Udemy - Quality Assurance"
-  }
-};
-
-
-        let currentLang = "pt";
-        function toggleLanguage() {
-          currentLang = currentLang === "pt" ? "en" : "pt";
-          const elements = document.querySelectorAll("[data-translate]");
-
-          elements.forEach(el => {
-            const key = el.getAttribute("data-translate");
-            el.textContent = translations[currentLang][key];
-          });
-        }
-        function updateCVLink(lang) {
-          const downloadBtn = document.getElementById("downloadCV");
-          if (downloadBtn) {
-            downloadBtn.href = lang === "pt" ? "cv-pt.pdf" : "cv-en.pdf";
-            downloadBtn.innerText = lang === "pt" ? "Baixar Currículo" : "Download CV";
-          }
-        }
-
-      </script>
+    let currentLang = "pt";
+    function toggleLanguage() {
+      currentLang = currentLang === "pt" ? "en" : "pt";
+      document.querySelectorAll("[data-translate]").forEach(el => {
+        const key = el.getAttribute("data-translate");
+        if (translations[currentLang][key]) el.textContent = translations[currentLang][key];
+      });
+      const downloadBtn = document.getElementById("downloadCV");
+      if (downloadBtn) {
+        downloadBtn.href = currentLang === "pt" ? "Curriculo Erica Ribeiro.pdf" : "cv-en.pdf";
+      }
+    }
+  </script>
 </body>
-
 </html>
