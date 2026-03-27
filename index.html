@@ -586,10 +586,42 @@
 
   <!-- Responsive nav tweak -->
   <style>
-    @media (max-width: 640px) {
-      .hidden-mobile { display: none !important; }
-      #hamburger { display: inline-flex !important; }
-    }
+ @media (max-width: 640px) {
+  .hidden-mobile { 
+    display: flex !important; /* MOSTRA o menu */
+  }
+
+  #hamburger { 
+    display: inline-flex !important; 
+  }
+
+  /* layout geral */
+  header > div {
+    flex-direction: column;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* GitHub */
+  .github-link {
+    text-align: center;
+  }
+
+  /* botões */
+  header > div > div {
+    justify-content: center !important;
+    width: 100%;
+  }
+
+  /* MENU (ESSA É A PARTE IMPORTANTE) */
+  #menu {
+    order: 3; /* joga pra baixo */
+    justify-content: center !important;
+    gap: 20px !important;
+    width: 100%;
+    margin-top: 10px;
+  }
+}
   </style>
 
   <!-- HERO -->
