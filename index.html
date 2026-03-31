@@ -135,7 +135,12 @@
 
     /* ── PROJETOS ── */
     #projetos { padding: 100px 24px 80px; max-width: 1100px; margin: 0 auto; }
-    .proj-gallery { margin-top: 60px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .proj-gallery {
+  margin-top: 60px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
     .proj-item { position: relative; border-radius: 20px; overflow: hidden; background: var(--surface2); border: 1px solid var(--border2); transition: transform 0.45s cubic-bezier(0.23,1,0.32,1), box-shadow 0.45s; }
     .proj-item:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,61,127,0.2); z-index: 2; }
     .proj-item.featured { grid-column: span 2; }
@@ -285,8 +290,9 @@
       <div class="proj-item reveal reveal-d1"><img src="dior.png" alt="Dior" loading="lazy" /><div class="proj-overlay"><p class="proj-tag">Landing Page</p><p class="proj-name">Dior</p></div></div>
       <div class="proj-item reveal reveal-d1"><img src="belle.jpg" alt="Belle" loading="lazy" /><div class="proj-overlay"><p class="proj-tag">E-commerce</p><p class="proj-name">Belle</p></div></div>
       <div class="proj-item reveal reveal-d2"><video autoplay muted loop playsinline><source src="applesales.mp4" type="video/mp4"/></video><div class="proj-overlay"><p class="proj-tag">Dashboard · BI</p><p class="proj-name">Apple Sales Analytics</p></div></div>
-      <div class="proj-item reveal reveal-d2"><video autoplay muted loop playsinline><source src="bellitiapelle.mp4" type="video/mp4"/></video><div class="proj-overlay"><p class="proj-tag">Full Stack</p><p class="proj-name">Bellitia Pelle</p></div></div>
+      <div class="proj-item reveal reveal-d2"><video autoplay muted loop playsinline><source src="bellitiapelle.mp4" type="video/mp4"/></video><div class="proj-overlay"><p class="proj-tag">FLanding Page</p><p class="proj-name">Bellitia Pelle</p></div></div>
       <div class="proj-item featured reveal reveal-d3"><video autoplay muted loop playsinline><source src="inova.mp4" type="video/mp4"/></video><div class="proj-overlay"><p class="proj-tag">Web · E-commerce</p><p class="proj-name">INOVA — Receitas Caseiras</p></div></div>
+      <div class="proj-item featured reveal reveal-d3"><video autoplay muted loop playsinline><source src="salesjewelry.mp4" type="video/mp4"/></video><div class="proj-overlay"><p class="proj-tag">Web · E-commerce</p><p class="proj-name">Beauty Jewelry </p></div></div>
     </div>
 
     <div class="proj-swiper-wrap">
@@ -298,6 +304,7 @@
           <div class="swiper-slide"><video autoplay muted loop playsinline><source src="applesales.mp4" type="video/mp4"/></video></div>
           <div class="swiper-slide"><video autoplay muted loop playsinline><source src="bellitiapelle.mp4" type="video/mp4"/></video></div>
           <div class="swiper-slide"><video autoplay muted loop playsinline><source src="inova.mp4" type="video/mp4"/></video></div>
+          <div class="swiper-slide"><video autoplay muted loop playsinline><source src="salesjewelry.mp4" type="video/mp4"/></video></div>
         </div>
         <div class="swiper-pagination" style="padding:14px 0;"></div>
       </div>
