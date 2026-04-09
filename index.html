@@ -37,8 +37,21 @@
     #cur {
       display: none;
       position: fixed; width: 8px; height: 8px; background: var(--pink);
-      border-radius: 50%; pointer-events: none; z-index: 9999;
+      border-radius: 50%; pointer-events: none; z-index: 9998;
       transform: translate(-50%,-50%); transition: width .3s, height .3s; mix-blend-mode: screen;
+    }
+
+    #cur-ring {
+      display: none;
+      position: fixed;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--pink);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9997;
+      transform: translate(-50%, -50%);
+      transition: width .3s, height .3s;
     }
   
     @media (pointer: fine) {
@@ -48,7 +61,15 @@
     }
 
     /* ── NOISE + BLOBS ── */
-    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9000; opacity: 0.5; }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,...");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.5;
+    }
     .blob { position: fixed; border-radius: 50%; filter: blur(120px); pointer-events: none; z-index: 0; animation: blobDrift 18s ease-in-out infinite; }
     .blob-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,61,127,0.08) 0%, transparent 70%); top: -200px; left: -150px; }
     .blob-2 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(80,40,255,0.06) 0%, transparent 70%); bottom: 5%; right: -100px; animation-delay: -9s; }
@@ -56,8 +77,20 @@
     @keyframes blobDrift { 0%,100%{transform:translate(0,0) scale(1)} 33%{transform:translate(40px,-30px) scale(1.05)} 66%{transform:translate(-20px,40px) scale(0.95)} }
 
     /* ── HEADER ── */
-    header { position: sticky; top: 0; z-index: 500; padding: 16px 40px; display: flex; justify-content: space-between; align-items: center; background: rgba(8,8,16,0.7); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px); border-bottom: 1px solid var(--border2); transition: background 0.4s; }
-    body.light-mode header { background: rgba(245,243,255,0.8); }
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10001;
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(8,8,16,0.7);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border2);
+      transition: background 0.4s;
+    }
 
     nav { display: flex; align-items: center; gap: 32px; }
     nav a { font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; position: relative; }
@@ -136,11 +169,11 @@
     /* ── PROJETOS ── */
     #projetos { padding: 100px 24px 80px; max-width: 1100px; margin: 0 auto; }
     .proj-gallery {
-  margin-top: 60px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
     .proj-item { position: relative; border-radius: 20px; overflow: hidden; background: var(--surface2); border: 1px solid var(--border2); transition: transform 0.45s cubic-bezier(0.23,1,0.32,1), box-shadow 0.45s; }
     .proj-item:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 24px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,61,127,0.2); z-index: 2; }
     .proj-item.featured { grid-column: span 2; }
@@ -253,7 +286,7 @@
   </header>
 
   <section class="hero">
-    <div class="hero-badge">Disponível para projetos</div>
+    <div class="hero-badge" data-translate="hero_badge">Disponível para projetos</div>
     <div class="hero-avatar-wrapper">
       <img src="perfil.jpg" alt="Érica Ribeiro" class="hero-avatar" oncontextmenu="return false;" draggable="false" />
     </div>
@@ -264,26 +297,26 @@
         Ver Projetos
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </button>
-      <a href="https://github.com/ericaregina" target="_blank" class="btn-ghost">GitHub</a>
+      <a href="https://github.com/ericaregina" target="_blank" class="btn-ghost" data-translate="btn_github">GitHub</a>
     </div>
-    <div class="hero-scroll"><span>Scroll</span><div class="scroll-dot"></div></div>
+    <div class="hero-scroll"><span data-translate="hero_scroll">Scroll</span><div class="scroll-dot"></div></div>
   </section>
 
   <div class="divider"></div>
 
   <section id="sobre">
-    <span class="section-label reveal">01 — ABOUT</span>
-    <h3 class="section-title reveal reveal-d1">Sobre <em>mim</em></h3>
-    <p class="reveal reveal-d2" data-translate="texto_sobre">Graduada em Análise e Desenvolvimento de Sistemas, tenho me dedicado ao aprendizado e prática no desenvolvimento web e mobile, além da área de testes de software. Tenho conhecimentos em HTML, CSS, Tailwind, JavaScript, MySQL e consumo de APIs, além de já ter desenvolvido projetos com frameworks como React.js, Node.js e Express.js. Utilizo Git para versionamento de código e estou familiarizada com metodologias ágeis como Scrum e Kanban. Também possuo experiência com testes manuais e automatizados (Jest e Cypress), além de práticas de QA utilizando a IDE Eclipse.</p>
-    <p class="reveal reveal-d3">Tenho desenvolvido continuamente minhas habilidades em Análise de Dados, atuando na transformação de dados em insights estratégicos para o negócio. Trabalho com Power BI (Desktop e Service), Power Query e Metabase na construção de dashboards interativos e na modelagem de dados, utilizando SQL e DAX para garantir análises consistentes e eficientes.</p>
-    <p class="reveal reveal-d4">Atuo no desenvolvimento de dashboards end-to-end, desde a coleta e tratamento dos dados até a construção de visualizações e publicação. Também trabalho com automação de processos com Power Automate e n8n, e tenho vivência na comunicação com stakeholders, traduzindo necessidades de negócio em soluções orientadas a dados.</p>
+    <span class="section-label reveal" data-translate="label_sobre">01 — SOBRE</span>
+    <h3 class="section-title reveal reveal-d1" data-translate="title_sobre">Sobre <em>mim</em></h3>
+    <p class="reveal reveal-d2" data-translate="texto_sobre">Graduada em Análise e Desenvolvimento de Sistemas, tenho me dedicado ao aprendizado e prática no desenvolvimento web e mobile, além da área de testes de software. Tenho conhecimentos em HTML, CSS, Tailwind, JavaScript, MySQL e consumo de APIs, além de já ter desenvolvido projetos com frameworks como React.js, Node.js e Express.js. Utilizo Git para versionamento de código e estou familiarizada com metodologias ágeis como Scrum e Kanban.</p>
+    <p class="reveal reveal-d3" data-translate="texto_sobre2">Tenho desenvolvido continuamente minhas habilidades em Análise de Dados, atuando na transformação de dados em insights estratégicos para o negócio. Trabalho com Power BI (Desktop e Service), Power Query e Metabase na construção de dashboards interativos e na modelagem de dados, utilizando SQL e DAX para garantir análises consistentes e eficientes.</p>
+    <p class="reveal reveal-d4" data-translate="texto_sobre3">Atuo no desenvolvimento de dashboards end-to-end, desde a coleta e tratamento dos dados até a construção de visualizações e publicação. Também trabalho com automação de processos com Power Automate e n8n, e tenho vivência na comunicação com stakeholders, traduzindo necessidades de negócio em soluções orientadas a dados.</p>
   </section>
 
   <div class="divider"></div>
 
   <section id="projetos">
-    <span class="section-label reveal">02 — WORK</span>
-    <h3 class="section-title reveal reveal-d1">Meus <em>Projetos</em></h3>
+    <span class="section-label reveal" data-translate="label_projetos">02 — PROJETOS</span>
+    <h3 class="section-title reveal reveal-d1" data-translate="title_projetos">Meus <em>Projetos</em></h3>
 
     <div class="proj-gallery">
       <div class="proj-item featured reveal"><img src="appstore.png" alt="App Store" loading="lazy" /><div class="proj-overlay"><p class="proj-tag">Web Design</p><p class="proj-name">App Store Interface</p></div></div>
@@ -340,8 +373,8 @@
   <div class="divider"></div>
 
   <section id="contato">
-    <span class="section-label reveal">03 — CONTACT</span>
-    <h3 class="section-title reveal reveal-d1">Entre em <em>contato</em></h3>
+    <span class="section-label reveal" data-translate="label_contato">03 — CONTATO</span>
+    <h3 class="section-title reveal reveal-d1" data-translate="title_contato">Entre em <em>contato</em></h3>
     <p class="reveal reveal-d2"><span data-translate="email">Me envie um e-mail:</span><br><a href="mailto:ribeiroericacomc@gmail.com" class="email-link">ribeiroericacomc@gmail.com</a></p>
     <div class="contact-btns reveal reveal-d3">
       <a href="https://wa.me/5547992806411?text=Olá%20Erica%2C%20vi%20seu%20portfólio%20e%20gostaria%20de%20falar%20com%20você!" target="_blank" class="btn-secondary filled" data-translate="btn_whatsapp">WhatsApp</a>
@@ -353,14 +386,20 @@
 
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script>
-    // ── Cursor — only on desktop (fine pointer)
+    // ── Cursor otimizado (evita travamento no header)
     if (window.matchMedia('(pointer: fine)').matches) {
       const cur = document.getElementById('cur');
       const ring = document.getElementById('cur-ring');
+      let ringTimeout = null;
+
       document.addEventListener('mousemove', e => {
+        // Cursor principal atualiza imediatamente
         cur.style.left = e.clientX + 'px';
         cur.style.top = e.clientY + 'px';
-        setTimeout(() => {
+
+        // Ring com delay controlado (cancela timeout anterior para evitar fila e travamento)
+        if (ringTimeout) clearTimeout(ringTimeout);
+        ringTimeout = setTimeout(() => {
           ring.style.left = e.clientX + 'px';
           ring.style.top = e.clientY + 'px';
         }, 55);
@@ -375,14 +414,11 @@
     });
 
     // ── Scroll reveal
-    new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 }).observe
-    && document.querySelectorAll('.reveal').forEach(el =>
+    document.querySelectorAll('.reveal').forEach(el => {
       new IntersectionObserver(entries => {
         entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-      }, { threshold: 0.1 }).observe(el)
-    );
+      }, { threshold: 0.1 }).observe(el);
+    });
 
     // ── Helpers
     function scrollToSection(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }); }
@@ -393,52 +429,99 @@
     function toggleMob() { mobileMenu.classList.toggle('open'); }
     function closeMob() { mobileMenu.classList.remove('open'); }
     document.getElementById('close-btn').addEventListener('click', closeMob);
-    // close on backdrop click
     mobileMenu.addEventListener('click', e => { if (e.target === mobileMenu) closeMob(); });
 
-    // ── Translations
+    // ── Translations completas (todos os textos e títulos agora em PT e ENG)
     const T = {
       pt: {
-        menu_sobre:"Sobre", menu_projetos:"Projetos", menu_contato:"Contato",
-        hero_titulo:"Oie, sou a <em>Érica</em> Ribeiro!",
-        hero_texto:"Análise e Desenvolvimento de Sistemas · Full Stack Developer · Business Intelligence",
-        btn_ver_projetos:"Ver Projetos",
-        texto_sobre:"Graduada em Análise e Desenvolvimento de Sistemas, tenho me dedicado ao aprendizado e prática no desenvolvimento web e mobile, além da área de testes de software. Tenho conhecimentos em HTML, CSS, Tailwind, JavaScript, MySQL e consumo de APIs, além de já ter desenvolvido projetos com frameworks como React.js, Node.js e Express.js. Utilizo Git para versionamento de código e estou familiarizada com metodologias ágeis como Scrum e Kanban.",
-        titulo_tecnologias:"Minhas Tecnologias", titulo_certificacoes:"Minhas Certificações",
-        titulo_contato:"Entre em contato", email:"Me envie um e-mail:", btn_whatsapp:"WhatsApp", btn_download_cv:"Baixar Currículo",
-        text_direitos:"© 2025 Todos os direitos reservados.",
-        cert_ingles:"SENAI - Inglês", cert_algoritmos:"Udemy - Algoritmos e Lógica de Programação",
-        cert_javascript:"Udemy - JavaScript com Node.js", cert_bd_mobile:"SENAI - Banco de Dados em Aplicações Móveis",
-        cert_bd_relacional:"Udemy - Banco de Dados Relacional", cert_dev_mobile:"SENAI - Introdução ao Desenvolvimento Móvel",
-        cert_metodologias:"SENAI - Metodologias Ágeis Para Desenvolvimento Software", cert_poo:"SENAI - Programação Orientada a Objetos",
-        cert_entra21:"SENAI - Entra21 (HTML, CSS, JavaScript, GIT, Python básico)", cert_bi:"Udemy - Power BI do Básico ao Avançado",
-        cert_datascience:"Data Science Academy - Power BI para Business Intelligence e Data Science", cert_q:"Udemy - Quality Assurance"
+        menu_sobre: "Sobre",
+        menu_projetos: "Projetos",
+        menu_contato: "Contato",
+        hero_badge: "Disponível para projetos",
+        hero_titulo: "Oie, sou a <em>Erica</em> Ribeiro!",
+        hero_texto: "Análise e Desenvolvimento de Sistemas · Full Stack Developer · Business Intelligence",
+        btn_ver_projetos: "Ver Projetos",
+        btn_github: "GitHub",
+        hero_scroll: "Role",
+        label_sobre: "01 — SOBRE",
+        title_sobre: "Sobre <em>mim</em>",
+        texto_sobre: "Graduada em Análise e Desenvolvimento de Sistemas, tenho me dedicado ao aprendizado e prática no desenvolvimento web e mobile, além da área de testes de software. Tenho conhecimentos em HTML, CSS, Tailwind, JavaScript, MySQL e consumo de APIs, além de já ter desenvolvido projetos com frameworks como React.js, Node.js e Express.js. Utilizo Git para versionamento de código e estou familiarizada com metodologias ágeis como Scrum e Kanban.",
+        texto_sobre2: "Tenho desenvolvido continuamente minhas habilidades em Análise de Dados, atuando na transformação de dados em insights estratégicos para o negócio. Trabalho com Power BI (Desktop e Service), Power Query e Metabase na construção de dashboards interativos e na modelagem de dados, utilizando SQL e DAX para garantir análises consistentes e eficientes.",
+        texto_sobre3: "Atuo no desenvolvimento de dashboards end-to-end, desde a coleta e tratamento dos dados até a construção de visualizações e publicação. Também trabalho com automação de processos com Power Automate e n8n, e tenho vivência na comunicação com stakeholders, traduzindo necessidades de negócio em soluções orientadas a dados.",
+        label_projetos: "02 — PROJETOS",
+        title_projetos: "Meus <em>Projetos</em>",
+        titulo_tecnologias: "Minhas Tecnologias",
+        titulo_certificacoes: "Minhas Certificações",
+        label_contato: "03 — CONTATO",
+        title_contato: "Entre em <em>contato</em>",
+        email: "Me envie um e-mail:",
+        btn_whatsapp: "WhatsApp",
+        btn_download_cv: "Baixar Currículo",
+        text_direitos: "© 2025 Todos os direitos reservados.",
+        cert_ingles: "SENAI - Inglês",
+        cert_algoritmos: "Udemy - Algoritmos e Lógica de Programação",
+        cert_javascript: "Udemy - JavaScript com Node.js",
+        cert_bd_mobile: "SENAI - Banco de Dados em Aplicações Móveis",
+        cert_bd_relacional: "Udemy - Banco de Dados Relacional",
+        cert_dev_mobile: "SENAI - Introdução ao Desenvolvimento Móvel",
+        cert_metodologias: "SENAI - Metodologias Ágeis",
+        cert_poo: "SENAI - Programação Orientada a Objetos",
+        cert_entra21: "SENAI - Entra21",
+        cert_bi: "Udemy - Power BI do Básico ao Avançado",
+        cert_datascience: "Data Science Academy - Power BI para BI e Data Science",
+        cert_q: "Udemy - Quality Assurance"
       },
       en: {
-        menu_sobre:"About", menu_projetos:"Projects", menu_contato:"Contact",
-        hero_titulo:"Hi, I'm <em>Érica</em> Ribeiro!",
-        hero_texto:"Systems Analysis & Development · Full Stack Developer · Business Intelligence",
-        btn_ver_projetos:"See Projects",
-        texto_sobre:"Graduated in Systems Analysis and Development, I have been dedicated to learning and practicing web and mobile development, as well as software testing. I have knowledge in HTML, CSS, Tailwind, JavaScript, MySQL, and API consumption, and I have developed projects using React.js, Node.js, and Express.js. I use Git for version control and I am familiar with agile methodologies such as Scrum and Kanban.",
-        titulo_tecnologias:"My Technologies", titulo_certificacoes:"My Certifications",
-        titulo_contato:"Get in Touch", email:"Send me an email:", btn_whatsapp:"WhatsApp", btn_download_cv:"Download CV",
-        text_direitos:"© 2025 All rights reserved.",
-        cert_ingles:"SENAI - English", cert_algoritmos:"Udemy - Algorithms and Logic Programming",
-        cert_javascript:"Udemy - JavaScript with Node.js", cert_bd_mobile:"SENAI - Database in Mobile Applications",
-        cert_bd_relacional:"Udemy - Relational Database", cert_dev_mobile:"SENAI - Introduction to Mobile Development",
-        cert_metodologias:"SENAI - Agile Methodologies for Software Development", cert_poo:"SENAI - Object Oriented Programming",
-        cert_entra21:"SENAI - Entra21 (HTML, CSS, JavaScript, GIT, Basic Python)", cert_bi:"Udemy - Power BI Beginner to Advanced",
-        cert_datascience:"Data Science Academy - Microsoft Power BI for Business Intelligence and Data Science", cert_q:"Udemy - Quality Assurance"
+        menu_sobre: "About",
+        menu_projetos: "Projects",
+        menu_contato: "Contact",
+        hero_badge: "Available for projects",
+        hero_titulo: "Hi, I'm <em>Erica</em> Ribeiro!",
+        hero_texto: "Systems Analysis & Development · Full Stack Developer · Business Intelligence",
+        btn_ver_projetos: "See Projects",
+        btn_github: "GitHub",
+        hero_scroll: "Scroll",
+        label_sobre: "01 — ABOUT",
+        title_sobre: "About <em>me</em>",
+        texto_sobre: "Graduated in Systems Analysis and Development, I have been dedicated to learning and practicing web and mobile development, as well as software testing. I have knowledge in HTML, CSS, Tailwind, JavaScript, MySQL, and API consumption, and I have developed projects using React.js, Node.js, and Express.js. I use Git for version control and I am familiar with agile methodologies such as Scrum and Kanban.",
+        texto_sobre2: "I have continuously developed my skills in Data Analysis, transforming data into strategic insights for the business. I work with Power BI (Desktop and Service), Power Query and Metabase building interactive dashboards and data modeling, using SQL and DAX to ensure consistent and efficient analyses.",
+        texto_sobre3: "I work on end-to-end dashboard development, from data collection and processing to building visualizations and publishing. I also work with process automation using Power Automate and n8n, and I have experience communicating with stakeholders, translating business needs into data-driven solutions.",
+        label_projetos: "02 — PROJECTS",
+        title_projetos: "My <em>Projects</em>",
+        titulo_tecnologias: "My Technologies",
+        titulo_certificacoes: "My Certifications",
+        label_contato: "03 — CONTACT",
+        title_contato: "Get in <em>touch</em>",
+        email: "Send me an email:",
+        btn_whatsapp: "WhatsApp",
+        btn_download_cv: "Download CV",
+        text_direitos: "© 2025 All rights reserved.",
+        cert_ingles: "SENAI - English",
+        cert_algoritmos: "Udemy - Algorithms and Logic Programming",
+        cert_javascript: "Udemy - JavaScript with Node.js",
+        cert_bd_mobile: "SENAI - Database in Mobile Applications",
+        cert_bd_relacional: "Udemy - Relational Database",
+        cert_dev_mobile: "SENAI - Introduction to Mobile Development",
+        cert_metodologias: "SENAI - Agile Methodologies",
+        cert_poo: "SENAI - Object Oriented Programming",
+        cert_entra21: "SENAI - Entra21",
+        cert_bi: "Udemy - Power BI Beginner to Advanced",
+        cert_datascience: "Data Science Academy - Microsoft Power BI for Business Intelligence and Data Science",
+        cert_q: "Udemy - Quality Assurance"
       }
     };
+
     let lang = "pt";
     function toggleLanguage() {
       lang = lang === "pt" ? "en" : "pt";
       document.querySelectorAll("[data-translate]").forEach(el => {
         const k = el.getAttribute("data-translate");
         if (!T[lang][k]) return;
-        if (['H2','BUTTON'].includes(el.tagName)) el.innerHTML = T[lang][k];
-        else el.textContent = T[lang][k];
+        if (['H2','H3','BUTTON'].includes(el.tagName)) {
+          el.innerHTML = T[lang][k];
+        } else {
+          el.textContent = T[lang][k];
+        }
       });
       const cv = document.getElementById("downloadCV");
       if (cv) cv.href = lang === "pt" ? "Curriculo - Erica Ribeiro.pdf" : "cv-en.pdf";
